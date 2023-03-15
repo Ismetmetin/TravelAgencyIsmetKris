@@ -90,7 +90,7 @@ namespace TravelAgency.Presentation
 
         private void TravelAdd()
         {
-            Console.WriteLine(100);
+            // TODO: ot tuka...
         }
 
         //----------------------------------------------
