@@ -90,7 +90,7 @@ namespace TravelAgency.Presentation
 
         private void TravelAdd()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(100);
         }
 
         //----------------------------------------------
