@@ -35,10 +35,10 @@ namespace TravelAgency.Presentation
                         BusMenuInput();
                         break;
                     case 2:
-
+                        CityMenuInput();
                         break;
                     case 3:
-
+                        ClientMenuInput();
                         break;
                     case 4:
 
@@ -310,8 +310,8 @@ namespace TravelAgency.Presentation
 
         //------------------------------------------------
         // Client menu, input and methods
-        
-        
+
+
         /// <summary>
         /// Принтира менюто и иска вход
         /// </summary>
@@ -418,7 +418,7 @@ namespace TravelAgency.Presentation
             var clients = clientBusiness.GetAll();
             foreach (var client in clients)
             {
-                Console.WriteLine($"{client.Id} {client.FirstName} {client.LastName} {client.Age}, Travel id -{client.TravelId}");
+                Console.WriteLine($"{client.Id} {client.FirstName} {client.LastName} {client.Age}, Travel ID -{client.TravelId}");
             }
         }
 
@@ -427,8 +427,8 @@ namespace TravelAgency.Presentation
         /// </summary>
         public void ClientUpdate()
         {
-            
-             Console.WriteLine("Enter ID to update: ");
+
+            Console.WriteLine("Enter ID to update: ");
             int id = int.Parse(Console.ReadLine());
             Client client = clientBusiness.Get(id);
             if (client != null)
@@ -446,25 +446,115 @@ namespace TravelAgency.Presentation
             else
             {
                 Console.WriteLine("Client not found!");
-            }           
-             
+            }
+
 
 
         }
-        
+
         /// <summary>
         /// При дадено ID на клиент се връща информацията за неговото пътуване 
         /// </summary>
-        public void ClientGetTravelByClientId() {
+        public void ClientGetTravelByClientId()
+        {
             Console.WriteLine("Enter the ID of a client and his travel information will be shown");
             int idClient = int.Parse(Console.ReadLine());
             var travel = clientBusiness.Get(idClient).Travel;
-            Console.WriteLine("Travel ID: "+ travel.Id);
-            Console.WriteLine("From city:\nID: "+travel.FromCity.Id+" \nCity:"+travel.FromCity.Name);
-            Console.WriteLine("To city:\nID: "+travel.ToCity.Id+" \nCity: "+travel.ToCity.Name);
-            Console.WriteLine("Bus ID: "+ travel.BusId);
+            Console.WriteLine("Travel ID: " + travel.Id);
+            Console.WriteLine("From city:\nID: " + travel.FromCity.Id + " \nCity:" + travel.FromCity.Name);
+            Console.WriteLine("To city:\nID: " + travel.ToCity.Id + " \nCity: " + travel.ToCity.Name);
+            Console.WriteLine("Bus ID: " + travel.BusId);
             //vij tuk
-            Console.WriteLine("Date of travel - "+ travel.DateOfTravel.ToString());
+            Console.WriteLine("Date of travel - " + travel.DateOfTravel.ToString());
+        }
+
+        public void CityMenuInput()
+        {
+            ShowCityMenu();
+
+            int operation = int.Parse(Console.ReadLine());
+
+            switch (operation)
+            {
+                case 1: CityAdd(); break;
+                case 2: CityDelete(); break;
+                case 3: CityGet(); break;
+                case 4: CityGetAll(); break;
+                case 5: CityUpdate(); break;
+                default: Console.WriteLine("Option not available!"); break;
+            }
+        }
+
+        private void CityAdd()
+        {
+            City city = new City();
+            Console.WriteLine("Enter name of city:");
+            city.Name = Console.ReadLine();
+            Console.WriteLine("Enter population:");
+            city.Population = int.Parse(Console.ReadLine());
+            cityBusiness.Add(city);
+        }
+
+        private void CityDelete()
+        {
+            Console.WriteLine("Enter the ID of the city you want to delete:");
+            int id = int.Parse(Console.ReadLine());
+            var city = cityBusiness.Get(id);
+            if (city != null)
+            {
+                cityBusiness.Delete(id);
+                Console.WriteLine("Done.");
+            }
+            else
+            {
+                Console.WriteLine("City not found!");
+            }
+        }
+
+        private void CityGet()
+        {
+            Console.WriteLine("Enter ID to get: ");
+            int id = int.Parse(Console.ReadLine());
+            City city = cityBusiness.Get(id);
+            if (city != null)
+            {
+                Console.WriteLine(new string('-', 40));
+                Console.WriteLine("ID: " + city.Id);
+                Console.WriteLine("Name: " + city.Name);
+                Console.WriteLine("Population: " + city.Population);
+                Console.WriteLine(new string('-', 40));
+            }
+        }
+
+        private void CityGetAll()
+        {
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string(' ', 16) + "CITIES" + new string(' ', 16));
+            Console.WriteLine(new string('-', 40));
+            var cities = cityBusiness.GetAll();
+            foreach (var city in cities)
+            {
+                Console.WriteLine($"{city.Id} {city.Name} Population{city.Population}");
+            }
+        }
+
+        private void CityUpdate()
+        {
+            Console.WriteLine("Enter ID to update: ");
+            int id = int.Parse(Console.ReadLine());
+            City city = cityBusiness.Get(id);
+            if (city != null)
+            {
+                Console.WriteLine("Enter name: ");
+                city.Name = Console.ReadLine();
+                Console.WriteLine("Enter population: ");
+                city.Population = int.Parse(Console.ReadLine());
+                cityBusiness.Update(city);
+            }
+            else
+            {
+                Console.WriteLine("City not found!");
+            }
         }
 
 
