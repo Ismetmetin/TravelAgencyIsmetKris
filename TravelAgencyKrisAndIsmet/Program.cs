@@ -7,12 +7,6 @@ namespace TravelAgency
         static void Main(string[] args)
         {
             Display display = new Display();
-
-            /*
-            dobavqme DriverBusBusiness
-            promenqme travel
-            promenqme TravelGet i TravelGetBus v TravelDisplay
-            */
         }
     }
 }
