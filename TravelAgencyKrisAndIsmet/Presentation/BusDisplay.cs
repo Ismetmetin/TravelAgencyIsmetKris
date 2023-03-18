@@ -19,6 +19,11 @@ namespace TravelAgencyKrisAndIsmet.Presentation
         }
 
 
+        // МОЖЕМ ДА ДОБАВИМ ИНДИКАТОР НАПРИМЕР СЛЕД КАТО СЕ ДОБАВИ АВТОБУС В БАЗАТА ДАННИ СЕ ИЗПИСВА БЪС АДДЕД РЕТЪРНИН ТО МЕЙН МЕНЙУ...
+
+
+
+
         /// <summary>
         /// Print the menu and wait for input
         /// </summary>

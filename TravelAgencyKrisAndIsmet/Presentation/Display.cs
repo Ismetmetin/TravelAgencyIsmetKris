@@ -5,16 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Business;
 using TravelAgency.Data;
+using TravelAgencyKrisAndIsmet.Presentation;
 
 namespace TravelAgency.Presentation
 {
     public class Display
     {
-        
-       
-        DriverBusiness driverBusiness = new DriverBusiness();
-        TravelBusiness travelBusiness = new TravelBusiness();
-
         public Display()
         {
             Input();
@@ -30,19 +26,19 @@ namespace TravelAgency.Presentation
                 switch (operation)
                 {
                     case 1:
-                        BusMenuInput();
+                        BusDisplay busDisplay = new BusDisplay();
                         break;
                     case 2:
-                        CityMenuInput();
+                        CityDisplay cityDisplay = new CityDisplay();
                         break;
                     case 3:
-                        ClientMenuInput();
+                        ClientDisplay clientDisplay = new ClientDisplay();
                         break;
                     case 4:
-                        DriverMenuInput();
+                        DriverDisplay driverDisplay = new DriverDisplay();
                         break;
                     case 5:
-                        TravelMenuInput();
+                        TravelDisplay travelDisplay = new TravelDisplay();
                         break;
                     case 6://END 
                         break;
@@ -54,37 +50,6 @@ namespace TravelAgency.Presentation
         }
 
 
-        // Travel menus and methods
-     
-
-
-
-
-
-
-
-
-        // МОЖЕМ ДА ДОБАВИМ ИНДИКАТОР НАПРИМЕР СЛЕД КАТО СЕ ДОБАВИ АВТОБУС В БАЗАТА ДАННИ СЕ ИЗПИСВА БЪС АДДЕД РЕТЪРНИН ТО МЕЙН МЕНЙУ...
-             
-
-        //------------------------------------------------
-        // Client menu, input and methods
-
-
-       
-
-
-
-
-
-
-        // Driver menus
-      
-
-
-
-        // ------------------------------------------
-        // Menus
         /* От исмет
         може да трябва да променим заглавията на всички менюта за да са симетрични
         защото при различните менюта ще се отпечатат на различна дължина тези 18 тирета и може да изглежда грозно
@@ -101,10 +66,5 @@ namespace TravelAgency.Presentation
             Console.WriteLine("4. Driver menu");
             Console.WriteLine("5. Travel menu");
         }
-       
-       
-       
-        
-       
     }
 }
