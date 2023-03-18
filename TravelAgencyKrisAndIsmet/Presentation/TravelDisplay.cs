@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,12 +67,10 @@ namespace TravelAgencyKrisAndIsmet.Presentation
             travel.ToCityId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter bus ID:");
             travel.BusId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter first driver ID:");
+            travel.DriverId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter date of travel: ");
-
-            // Да оставяме ли датите, защото после като вкарваме записите пред госпожата
-            // ще е много трудно
-
-            travel.DateOfTravel = DateTime.Parse(Console.ReadLine());
+            travel.DateOfTravel = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
             travelBusiness.Add(travel);
         }
         private void TravelGet()
@@ -86,6 +85,7 @@ namespace TravelAgencyKrisAndIsmet.Presentation
                 Console.WriteLine("From-city id: " + travel.FromCityId);
                 Console.WriteLine("To-city id: " + travel.ToCityId);
                 Console.WriteLine("Bus id: " + travel.BusId);
+                Console.WriteLine("Driver id: " + travel.DriverId);
                 Console.WriteLine("Date of travel: " + travel.DateOfTravel);
                 Console.WriteLine(new string('-', 40));
             }
@@ -112,8 +112,8 @@ namespace TravelAgencyKrisAndIsmet.Presentation
             Console.WriteLine(new string('-', 40));
             var travels = travelBusiness.GetAll();
             foreach (var travel in travels)
-            {
-                Console.WriteLine($"{travel.Id} {travel.FromCityId} {travel.ToCityId} {travel.BusId} {travel.DateOfTravel.ToString()}");
+            {// Warning toString метода за dateTime
+                Console.WriteLine($"{travel.Id} {travel.FromCityId} {travel.ToCityId} {travel.BusId} {travel.DriverId} {travel.DateOfTravel.ToString()}");
             }
         }
         private void TravelUpdate()

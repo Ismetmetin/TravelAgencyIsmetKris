@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace TravelAgency.Data
         public int FromCityId { get; set; }
         public int ToCityId { get; set; }
         public int BusId { get; set; }
+        public int DriverId { get; set; }
         public DateTime DateOfTravel { get; set; }
         public ICollection<Client> Clients { get; set; }
         public City FromCity { get; set; }

@@ -20,8 +20,6 @@ namespace TravelAgency.Data
 
         public DbSet<Travel> Travels { get; set; }
 
-        public DbSet<DriverBus> DriverBuses { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
