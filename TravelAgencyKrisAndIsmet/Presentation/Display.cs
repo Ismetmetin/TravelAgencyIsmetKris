@@ -16,7 +16,6 @@ namespace TravelAgency.Presentation
         DriverBusiness driverBusiness = new DriverBusiness();
         TravelBusiness travelBusiness = new TravelBusiness();
 
-        //dobavqm komentar
         public Display()
         {
             Input();
@@ -83,15 +82,55 @@ namespace TravelAgency.Presentation
                     TravelGetBus();
                     break;
                 case 7:
-                    // TODO: Довършвам последните 2 метода и да говорим за DateTime и като цяло
-                    // дали не можем да иззмислим нещо по-хубаво
+                    TravelGetFromCity();
                     break;
                 case 8:
-
+                    TravelGetToCity();
                     break;
                 default:
                     Console.WriteLine("Option not available!\nReturning to main menu...");
                     break;
+            }
+
+        }
+
+        private void TravelGetToCity()
+        {
+            Console.WriteLine("Enter ID of travel to get to-city id");
+            int id = int.Parse(Console.ReadLine());
+            Travel travel = travelBusiness.Get(id);
+            if (travel != null)
+            {
+                City city = travel.ToCity;
+                Console.WriteLine(new string('-', 40));
+                Console.WriteLine("ID: " + city.Id);
+                Console.WriteLine("Name: " + city.Name);
+                Console.WriteLine("Population: " + city.Population);
+                Console.WriteLine(new string('-', 40));
+            }
+            else
+            {
+                Console.WriteLine("Travel not found!");
+            }
+        }
+
+        private void TravelGetFromCity()
+        {
+            Console.WriteLine("Enter ID of travel to get from-city id");
+            int id = int.Parse(Console.ReadLine());
+            Travel travel = travelBusiness.Get(id);
+            if (travel != null)
+            {
+                City city = travel.FromCity;
+                Console.WriteLine(new string('-', 40));
+                Console.WriteLine("ID: " + city.Id);
+                Console.WriteLine("Name: " + city.Name);
+                Console.WriteLine("Population: " + city.Population);
+                Console.WriteLine(new string('-', 40));
+            }
+            else
+            {
+                Console.WriteLine("Travel not found!");
             }
 
         }
@@ -468,6 +507,8 @@ namespace TravelAgency.Presentation
             Console.WriteLine("Date of travel - " + travel.DateOfTravel.ToString());
         }
 
+        // City menus
+
         public void CityMenuInput()
         {
             ShowCityMenu();
@@ -575,6 +616,8 @@ namespace TravelAgency.Presentation
                 default: Console.WriteLine("Option not available!\nReturning to main menu..."); break;
             }
         }
+
+        // Driver menus
 
         private void DriverAdd()
         {
