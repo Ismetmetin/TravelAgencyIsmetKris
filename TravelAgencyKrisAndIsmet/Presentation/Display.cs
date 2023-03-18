@@ -54,6 +54,8 @@ namespace TravelAgency.Presentation
             } while (operation != 6);
         }
 
+
+        // Travel menus and methods
         private void TravelMenuInput()
         {
             ShowTravelMenu();
@@ -93,65 +95,65 @@ namespace TravelAgency.Presentation
             }
 
         }
-
-        private void TravelGetToCity()
+        private void TravelAdd()
         {
-            Console.WriteLine("Enter ID of travel to get to-city id");
+            Travel travel = new Travel();
+            Console.WriteLine("Enter from-city ID:");
+            travel.FromCityId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter to-city ID:");
+            travel.ToCityId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter bus ID:");
+            travel.BusId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter date of travel: ");
+
+            // Да оставяме ли датите, защото после като вкарваме записите пред госпожата
+            // ще е много трудно
+
+            travel.DateOfTravel = DateTime.Parse(Console.ReadLine());
+            travelBusiness.Add(travel);
+        }
+        private void TravelGet()
+        {
+            Console.WriteLine("Enter ID to get: ");
             int id = int.Parse(Console.ReadLine());
             Travel travel = travelBusiness.Get(id);
             if (travel != null)
             {
-                City city = travel.ToCity;
                 Console.WriteLine(new string('-', 40));
-                Console.WriteLine("ID: " + city.Id);
-                Console.WriteLine("Name: " + city.Name);
-                Console.WriteLine("Population: " + city.Population);
+                Console.WriteLine("ID: " + travel.Id);
+                Console.WriteLine("From-city id: " + travel.FromCityId);
+                Console.WriteLine("To-city id: " + travel.ToCityId);
+                Console.WriteLine("Bus id: " + travel.BusId);
+                Console.WriteLine("Date of travel: " + travel.DateOfTravel);
                 Console.WriteLine(new string('-', 40));
+            }
+        }
+        private void TravelDelete()
+        {
+            Console.WriteLine("Enter ID to delete: ");
+            int id = int.Parse(Console.ReadLine());
+            Travel travel = travelBusiness.Get(id);
+            if (travel != null)
+            {
+                travelBusiness.Delete(id);
+                Console.WriteLine("Done.");
             }
             else
             {
                 Console.WriteLine("Travel not found!");
             }
         }
-
-        private void TravelGetFromCity()
+        private void TravelGetAll()
         {
-            Console.WriteLine("Enter ID of travel to get from-city id");
-            int id = int.Parse(Console.ReadLine());
-            Travel travel = travelBusiness.Get(id);
-            if (travel != null)
-            {
-                City city = travel.FromCity;
-                Console.WriteLine(new string('-', 40));
-                Console.WriteLine("ID: " + city.Id);
-                Console.WriteLine("Name: " + city.Name);
-                Console.WriteLine("Population: " + city.Population);
-                Console.WriteLine(new string('-', 40));
-            }
-            else
-            {
-                Console.WriteLine("Travel not found!");
-            }
-
-        }
-
-        private void TravelGetBus()
-        {
-            Console.WriteLine("Enter ID of travel to see its bus: ");
-            int id = int.Parse(Console.ReadLine());
-            Travel travel = travelBusiness.Get(id);
-
-            // Така ли е май-добре да го оставим или нещо по-добро да измислим
-            Bus bus = travel.Bus;
-
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine("ID: " + bus.Id);
-            Console.WriteLine("Model: " + bus.Model);
-            Console.WriteLine("Capacity: " + bus.Capacity);
-            Console.WriteLine("Kilometers runed: " + bus.KilometersRun);
+            Console.WriteLine(new string(' ', 16) + "BUSES" + new string(' ', 16));
             Console.WriteLine(new string('-', 40));
+            var travels = travelBusiness.GetAll();
+            foreach (var travel in travels)
+            {
+                Console.WriteLine($"{travel.Id} {travel.FromCityId} {travel.ToCityId} {travel.BusId} {travel.DateOfTravel.ToString()}");
+            }
         }
-
         private void TravelUpdate()
         {
             Console.WriteLine("Enter ID to update: ");
@@ -174,45 +176,55 @@ namespace TravelAgency.Presentation
                 Console.WriteLine("Travel not found!");
             }
         }
-
-        private void TravelGetAll()
+        private void TravelGetBus()
         {
+            Console.WriteLine("Enter ID of travel to see its bus: ");
+            int id = int.Parse(Console.ReadLine());
+            Travel travel = travelBusiness.Get(id);
+
+            // Така ли е май-добре да го оставим или нещо по-добро да измислим
+            Bus bus = travel.Bus;
+
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 16) + "BUSES" + new string(' ', 16));
+            Console.WriteLine("ID: " + bus.Id);
+            Console.WriteLine("Model: " + bus.Model);
+            Console.WriteLine("Capacity: " + bus.Capacity);
+            Console.WriteLine("Kilometers runed: " + bus.KilometersRun);
             Console.WriteLine(new string('-', 40));
-            var travels = travelBusiness.GetAll();
-            foreach (var travel in travels)
-            {
-                Console.WriteLine($"{travel.Id} {travel.FromCityId} {travel.ToCityId} {travel.BusId} {travel.DateOfTravel.ToString()}");
-            }
         }
-
-        private void TravelGet()
+        private void TravelGetFromCity()
         {
-            Console.WriteLine("Enter ID to get: ");
+            Console.WriteLine("Enter ID of travel to get from-city id");
             int id = int.Parse(Console.ReadLine());
             Travel travel = travelBusiness.Get(id);
             if (travel != null)
             {
+                City city = travel.FromCity;
                 Console.WriteLine(new string('-', 40));
-                Console.WriteLine("ID: " + travel.Id);
-                Console.WriteLine("From-city id: " + travel.FromCityId);
-                Console.WriteLine("To-city id: " + travel.ToCityId);
-                Console.WriteLine("Bus id: " + travel.BusId);
-                Console.WriteLine("Date of travel: " + travel.DateOfTravel);
+                Console.WriteLine("ID: " + city.Id);
+                Console.WriteLine("Name: " + city.Name);
+                Console.WriteLine("Population: " + city.Population);
                 Console.WriteLine(new string('-', 40));
             }
-        }
+            else
+            {
+                Console.WriteLine("Travel not found!");
+            }
 
-        private void TravelDelete()
+        }
+        private void TravelGetToCity()
         {
-            Console.WriteLine("Enter ID to delete: ");
+            Console.WriteLine("Enter ID of travel to get to-city id");
             int id = int.Parse(Console.ReadLine());
             Travel travel = travelBusiness.Get(id);
             if (travel != null)
             {
-                travelBusiness.Delete(id);
-                Console.WriteLine("Done.");
+                City city = travel.ToCity;
+                Console.WriteLine(new string('-', 40));
+                Console.WriteLine("ID: " + city.Id);
+                Console.WriteLine("Name: " + city.Name);
+                Console.WriteLine("Population: " + city.Population);
+                Console.WriteLine(new string('-', 40));
             }
             else
             {
@@ -220,29 +232,23 @@ namespace TravelAgency.Presentation
             }
         }
 
-        private void TravelAdd()
-        {
-            Travel travel = new Travel();
-            Console.WriteLine("Enter from-city ID:");
-            travel.FromCityId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter to-city ID:");
-            travel.ToCityId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter bus ID:");
-            travel.BusId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter date of travel: ");
 
-            // Да оставяме ли датите, защото после като вкарваме записите пред госпожата
-            // ще е много трудно
 
-            travel.DateOfTravel = DateTime.Parse(Console.ReadLine());
-            travelBusiness.Add(travel);
-        }
+
+
+
+
 
 
         // МОЖЕМ ДА ДОБАВИМ ИНДИКАТОР НАПРИМЕР СЛЕД КАТО СЕ ДОБАВИ АВТОБУС В БАЗАТА ДАННИ СЕ ИЗПИСВА БЪС АДДЕД РЕТЪРНИН ТО МЕЙН МЕНЙУ...
 
         //----------------------------------------------
         // Bus menu input and methods
+        
+        /// <summary>
+        /// Print the menu and wait for input
+        /// </summary>
+        
         private void BusMenuInput()
         {
             ShowBusMenu();
@@ -274,6 +280,9 @@ namespace TravelAgency.Presentation
 
         }
 
+        /// <summary>
+        /// Manually add a new bus to the database
+        /// </summary>
         private void BusAdd()
         {
             Bus bus = new Bus();
@@ -285,6 +294,10 @@ namespace TravelAgency.Presentation
             bus.KilometersRun = int.Parse(Console.ReadLine());
             busBusiness.Add(bus);
         }
+
+        /// <summary>
+        /// Delete a bus by given id
+        /// </summary>
         private void BusDelete()
         {
             Console.WriteLine("Enter ID to delete: ");
@@ -300,6 +313,10 @@ namespace TravelAgency.Presentation
                 Console.WriteLine("Bus not found!");
             }
         }
+
+        /// <summary>
+        /// Displays information about the bus for the travel
+        /// </summary>
         private void BusGet()
         {
             Console.WriteLine("Enter ID to get: ");
@@ -315,6 +332,10 @@ namespace TravelAgency.Presentation
                 Console.WriteLine(new string('-', 40));
             }
         }
+
+        /// <summary>
+        /// Displays information about all busses in the database
+        /// </summary>
         private void BusGetAll()
         {
             Console.WriteLine(new string('-', 40));
@@ -326,6 +347,10 @@ namespace TravelAgency.Presentation
                 Console.WriteLine($"{bus.Id} {bus.Model} {bus.Capacity} {bus.KilometersRun}");
             }
         }
+
+        /// <summary>
+        /// Update a bus in the database
+        /// </summary>
         private void BusUpdate()
         {
             Console.WriteLine("Enter ID to update: ");
